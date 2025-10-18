@@ -53,6 +53,8 @@ interface IMessageContainerProps {
 	handleEnterCall?: () => void;
 	blockAction?: (params: { actionId: string; appId: string; value: string; blockId: string; rid: string; mid: string }) => void;
 	onAnswerButtonPress?: Function;
+	// Triggered when user swipes a message to reply
+	onReplyInit?: (messageId: string) => void;
 	threadBadgeColor?: string;
 	toggleFollowThread?: (isFollowingThread: boolean, tmid?: string) => Promise<void>;
 	jumpToMessage?: (link: string) => void;
@@ -158,6 +160,20 @@ class MessageContainer extends React.Component<IMessageContainerProps, IMessageC
 		}
 
 		return this.onPress();
+	};
+
+	onSwipeReply = () => {
+		const { item, isThreadRoom, archived, onThreadPress, onReplyInit } = this.props;
+		if (isThreadRoom || archived) {
+			return;
+		}
+		// If this message belongs to a thread, open the thread; otherwise initiate a reply (start thread)
+		if (item.tmid || item.tlm) {
+			return this.onThreadPress();
+		}
+		if (onReplyInit) {
+			return onReplyInit(item.id);
+		}
 	};
 
 	onPress = debounce(
@@ -436,6 +452,7 @@ class MessageContainer extends React.Component<IMessageContainerProps, IMessageC
 					baseUrl,
 					onPress: this.onPressAction,
 					onLongPress: this.onLongPress,
+					onSwipeReply: this.onSwipeReply,
 					reactionInit: this.reactionInit,
 					onErrorPress: this.onErrorPress,
 					replyBroadcast: this.replyBroadcast,

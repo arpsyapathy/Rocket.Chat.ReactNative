@@ -1365,6 +1365,7 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 					highlighted={highlightedMessage === item.id}
 					theme={theme}
 					closeEmojiAndAction={this.handleCloseEmoji}
+					onReplyInit={this.onReplyInit}
 					isBeingEdited={isBeingEdited}
 					dateSeparator={dateSeparator}
 					showUnreadSeparator={showUnreadSeparator}
