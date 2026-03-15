@@ -13,6 +13,7 @@ import Avatar from '../../containers/Avatar';
 import * as HeaderButton from '../../containers/Header/components/HeaderButton';
 import * as List from '../../containers/List';
 import { MarkdownPreview } from '../../containers/markdown';
+import StatusText from '../../containers/StatusText';
 import RoomTypeIcon from '../../containers/RoomTypeIcon';
 import SafeAreaView from '../../containers/SafeAreaView';
 import Status from '../../containers/Status';
@@ -806,12 +807,12 @@ class RoomActionsView extends React.Component<IRoomActionsViewProps, IRoomAction
 								msg={t === 'd' ? `@${name}` : topic}
 								style={[styles.roomDescription, { color: themes[theme].fontSecondaryInfo }]}
 							/>
-							{room.t === 'd' && (
-								<MarkdownPreview
-									msg={member.statusText}
-									style={[styles.roomDescription, { color: themes[theme].fontSecondaryInfo }]}
-								/>
-							)}
+                            {room.t === 'd' && (
+                                <StatusText
+                                    msg={member.statusText}
+                                    style={[styles.roomDescription, { color: themes[theme].fontSecondaryInfo }]}
+                                />
+                            )}
 						</View>
 						{isGroupChatHandler ? null : <List.Icon name='chevron-right' style={styles.actionIndicator} />}
 					</View>

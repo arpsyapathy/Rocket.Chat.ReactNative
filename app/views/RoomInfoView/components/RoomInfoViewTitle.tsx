@@ -7,7 +7,7 @@ import styles from '../styles';
 import { useTheme } from '../../../theme';
 import RoomTypeIcon from '../../../containers/RoomTypeIcon';
 import { getRoomTitle } from '../../../lib/methods/helpers';
-import CollapsibleText from '../../../containers/CollapsibleText';
+import StatusText from '../../../containers/StatusText';
 import EventEmitter from '../../../lib/methods/helpers/events';
 import { LISTENER } from '../../../containers/Toast';
 import I18n from '../../../i18n';
@@ -43,15 +43,15 @@ const RoomInfoViewTitle = ({ room, name, username, statusText, type }: IRoomInfo
 						testID='room-info-view-username'
 						style={[styles.roomUsername, { color: colors.fontSecondaryInfo }]}>{`@${username}`}</Text>
 				)}
-				{!!statusText && (
-					<View testID='room-info-view-custom-status'>
-						<CollapsibleText
-							linesToTruncate={2}
-							msg={statusText}
-							style={[styles.roomUsername, { color: colors.fontSecondaryInfo }]}
-						/>
-					</View>
-				)}
+                {!!statusText && (
+                    <View testID='room-info-view-custom-status'>
+                        <StatusText
+                            linesToTruncate={2}
+                            msg={statusText}
+                            style={[styles.roomUsername, { color: colors.fontSecondaryInfo }]}
+                        />
+                    </View>
+                )}
 			</View>
 		);
 	}

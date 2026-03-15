@@ -6,6 +6,7 @@ import { useResponsiveLayout } from '../../lib/hooks/useResponsiveLayout/useResp
 import I18n from '../../i18n';
 import sharedStyles from '../../views/Styles';
 import { MarkdownPreview } from '../markdown';
+import InlineEmojiText from '../InlineEmojiText';
 import RoomTypeIcon from '../RoomTypeIcon';
 import { type TUserStatus, type IOmnichannelSource, type ISubscription } from '../../definitions';
 import { useTheme } from '../../theme';
@@ -107,10 +108,16 @@ const SubTitle = React.memo(({ usersTyping, subtitle, renderFunc, scale }: TRoom
 		return renderFunc();
 	}
 
-	// subtitle
-	if (subtitle) {
-		return <MarkdownPreview msg={subtitle} style={[styles.subtitle, { fontSize, color: colors.fontSecondaryInfo }]} />;
-	}
+    // subtitle
+    if (subtitle) {
+        return (
+            <InlineEmojiText
+                text={subtitle}
+                numberOfLines={1}
+                style={[styles.subtitle, { fontSize, color: colors.fontSecondaryInfo }]}
+            />
+        );
+    }
 
 	return null;
 });
